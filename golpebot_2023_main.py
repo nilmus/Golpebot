@@ -1725,7 +1725,7 @@ def heal_starter(message):
     telegram_logger.info(f"User {get_user_link(message.from_user.id)} - inizio /guarigione")
     # First you should check if 30mins have passed since last attempt
     last_time = retrieve_time_column(message.from_user.id, 'time_of_heal')
-    time_check = has_enough_time_passed(last_time, minutes=minutes_between_spy)
+    time_check = has_enough_time_passed(last_time, minutes=minutes_between_heal)
     if time_check != True:      # if not enough time has passed
         minutes_left, seconds_left = time_check["minutes"], time_check["seconds"]
         text = f"Puoi effettuare una guarigione solo una volta ogni {minutes_between_heal} minuti. \nRiprova tra {minutes_left} minuti e {seconds_left} secondi"
