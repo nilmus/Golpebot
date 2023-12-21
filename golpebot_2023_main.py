@@ -905,9 +905,14 @@ def attack_gave_confirmation(call):
         damage = calculate_damage(attacker_strength, attacker_team_role, weapon_damage)
         mode = calculate_loudness_mode(attacker_luck, weapon_loudness)
         outcome = calculate_attack_outcome(damage, target_hp)
+        already_dead = False if retrieve_user_hp(target_id) > 0 else True
         # Apply
-        apply_attack(call.from_user.id, target_id, damage, weapon, outcome)
+        apply_attack(call.from_user.id, target_id, damage, weapon, outcome, already_dead)
         # Send messages and log
+        if already_dead:
+            text_to_shooter = "Hai sparato un cadavere! Bello spreco di munizioni... la prossima volta usa lo /spionaggio per assicurarti che i tuoi bersagli siano vivi"
+            telegram_logger.info(f"User {get_user_link(call.from_user.id)} - fine /attacco — testo al carnefice: \n'{text_to_shooter}'")
+            return outcome
         text_to_shooter, text_to_target = attack_send_messages(call, call.from_user.id, target_id, weapon, damage, mode, outcome)
         telegram_logger.info(f"User {get_user_link(call.from_user.id)} - fine /attacco — testo al carnefice: \n'{text_to_shooter}' \n\ntesto alla vittima: \n'{text_to_target}'")
         # The return is useful for the is_golpe_happening decorator

@@ -75,7 +75,7 @@ def calculate_attack_outcome(damage : int, target_hp : int):
         outcome = "killed"
     return outcome
 
-def apply_attack(attacker_id :int, target_id :int, damage :int, weapon :str, outcome : str):
+def apply_attack(attacker_id :int, target_id :int, damage :int, weapon :str, outcome : str, already_dead : bool):
     from Utils.chat_functions import mute_chat_member
     conn, c = prep_database()
     ## Use one ammo
@@ -84,6 +84,10 @@ def apply_attack(attacker_id :int, target_id :int, damage :int, weapon :str, out
                     WHERE user_id = %s AND arm_name = %s''',
                     (attacker_id, weapon)
                     )
+    if already_dead:
+        conn.commit()
+        conn.close()
+        return
     ## Deal damage (a trigger automatically sets is_alive to FALSE (dead) and time_of_death to current time if hp drops to or below 0)
     c.execute('''UPDATE users
                     SET hp = users.hp - %s
@@ -105,6 +109,7 @@ def apply_attack(attacker_id :int, target_id :int, damage :int, weapon :str, out
         mute_chat_member(target_id)
     # Commit
     conn.commit()
+    conn.close()
     return
 
 def attack_send_messages(call, attacker_id, target_id, weapon, damage, mode, outcome):
