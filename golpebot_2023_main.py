@@ -15,6 +15,7 @@ from Utils.decorators import *
 from Utils.telebot_init import bot
 from Utils.logging_init import *
 from Utils.time_functions import *
+from Utils.chat_functions import *
 from Utils.keyboard_functions import *
 from Game_functions.golpe_functions import *
 from Game_functions.attack_functions import *
@@ -906,6 +907,9 @@ def attack_gave_confirmation(call):
         outcome = calculate_attack_outcome(damage, target_hp)
         # Apply
         apply_attack(call.from_user.id, target_id, damage, weapon)
+        # Mute on group chat
+        if outcome == 'killed':
+            mute_chat_member(target_id)
         # Send messages and log
         text_to_shooter, text_to_target = attack_send_messages(call, call.from_user.id, target_id, weapon, damage, mode, outcome)
         telegram_logger.info(f"User {get_user_link(call.from_user.id)} - fine /attacco — testo al carnefice: \n'{text_to_shooter}' \n\ntesto alla vittima: \n'{text_to_target}'")
@@ -1336,13 +1340,15 @@ def respawn(message):
     if time_check != True:      # if not enough time has passed
         hours_left, minutes_left = time_check["hours"], time_check["minutes"]
         text = f"<i>Non puoi ancora respawnare, mancano {hours_left} ore e {minutes_left} minuti</i>"
-        bot.reply_to(message, text)
+        bot.reply_to(message, text, parse_mode='HTML')
         telegram_logger.info(f"User {get_user_link(message.from_user.id)} - /respawn — ma non era passato abbastanza tempo")
         return
     elif time_check == True:
         # Apply (revive and restore hp)
         c.execute("UPDATE users SET is_alive = TRUE, hp = 1000 WHERE user_id = %s", (message.from_user.id,))
         conn.commit()
+        # Unmute on group chat
+        unmute_chat_member(message.from_user.id)
         # Send message
         bot.send_message(chat_id=message.from_user.id, text=f"<code>Operazione completata</code> \n\nSei come nuovo, fai invidia a gesù!", parse_mode='HTML')
         telegram_logger.info(f"Utente {get_user_link(message.from_user.id)} - /respawn (successo)")
