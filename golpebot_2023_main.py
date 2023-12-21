@@ -2296,18 +2296,20 @@ def team_menu_2(call):
             if status == 'regnante':
                 c.execute("SELECT user_id FROM users WHERE team_role = 'nullità'")
                 private_workers = c.fetchall()
+                jobs_list = []
                 for private_worker_tuple in private_workers:
                     private_worker = private_worker_tuple[0]
-                    c.execute("SELECT job_name FROM job WHERE user_id = %s AND job_name != 'TEAMROLE'", (private_worker,))    #Retrieve all private workers' jobs
-                    jobs_list = c.fetchall()
-                    revenue = 0
-                    for job_name_tuple in jobs_list:
-                        job_name = job_name_tuple[0]
-                        daily_salary = jobs[job_name]["salary"] * (24 / jobs[job_name]["frequency_hours"])
+                    c.execute("SELECT job_name FROM job WHERE user_id = %s AND job_name != 'TEAMROLE'", (private_worker,))
+                    job = c.fetchone()
+                    if job:
+                        jobs_list.append(job[0])
+                revenue = 0
+                for job in jobs_list:
+                        daily_salary = jobs[job]["salary"] * (24 / jobs[job]["frequency_hours"])
                         daily_tax = daily_salary * (taxation/100)
                         revenue += daily_tax
-                    revenue = round(revenue)
-                    revenue_string = f"{revenue} soldi"
+                revenue = round(revenue)
+                revenue_string = f"{revenue} soldi"
             elif status != 'regnante':
                 revenue = 0
                 revenue_string = "0 (il  tuo team non è al governo, quindi non può riscuotere tasse)"
