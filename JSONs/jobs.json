@@ -1,0 +1,67 @@
+{
+    "jobs": {
+        "lavacessi" : {
+            "description" : "hai lavato un bel po' di cessi",
+            "salary": 40,
+            "frequency_hours": 8,
+            "required_intelligence": 0,
+            "contract_duration_days": 3
+        },
+        "contadino" : {
+            "description" : "hai contato un bel po' di dini",
+            "salary": 60,
+            "frequency_hours": 12,
+            "required_intelligence": 5,
+            "contract_duration_days": 3
+        },
+        "parcheggiatore" : {
+            "description" : "hai parcheggiato un bel po' di tori",
+            "salary": 50,
+            "frequency_hours": 6,
+            "required_intelligence": 5,
+            "contract_duration_days": 2
+        },
+        "programmatore" : {
+            "description" : "hai programmato un bel po' di tori",
+            "salary": 80,
+            "frequency_hours": 8,
+            "required_intelligence": 10,
+            "contract_duration_days": 5
+        },
+        "dottore" : {
+            "description" : "hai dottato un bel po' di tori",
+            "salary": 200,
+            "frequency_hours": 12,
+            "required_intelligence": 20,
+            "contract_duration_days": 7
+        },
+        "ingegnere" : {
+            "description" : "hai ingegnato un bel po' di eri",
+            "salary": 150,
+            "frequency_hours": 8,
+            "required_intelligence": 20,
+            "contract_duration_days": 7
+        },
+        "economista" : {
+            "description" : "hai econato un bel po' di miste",
+            "salary": 125,
+            "frequency_hours": 6,
+            "required_intelligence": 20,
+            "contract_duration_days": 7
+        },
+        "CEO" : {
+            "description" : "hai CE un bel po' di O",
+            "salary": 4000,
+            "frequency_hours": 24,
+            "required_intelligence": 50,
+            "contract_duration_days": 7
+        },
+        "astronauta" : {
+            "description" : "minchia.",
+            "salary": 50000,
+            "frequency_hours": 24,
+            "required_intelligence": 100,
+            "contract_duration_days": 14
+        }
+    }
+}

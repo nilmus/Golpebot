@@ -1,0 +1,75 @@
+{
+    "arms": {
+        "sparaorsacchiotti" : {
+            "description": "Un'arma di base, non molto potente, ma adatta ai principianti.",
+            "damage": 10,
+            "loudness": 30,
+            "list_price": 100,
+            "required_strength": 0
+        },
+        "pistola" : {
+            "description": "Con questa puoi uccidere.",
+            "damage": 100,
+            "loudness": 60,
+            "list_price": 500,
+            "required_strength": 10
+        },
+        "sparachiodi" : {
+            "description": "Per il sadico in te.",
+            "damage": 150,
+            "loudness": 50,
+            "list_price": 700,
+            "required_strength": 15
+        },
+        "fucile" : {
+            "description": "Get out of my property",
+            "damage": 300,
+            "loudness": 90,
+            "list_price": 1200,
+            "required_strength": 25
+        },
+        "sniper" : {
+            "description": "Guarda mamma come Kennedy",
+            "damage": 200,
+            "loudness": 5,
+            "list_price": 5000,
+            "required_strength": 35
+        },
+        "bazooka" : {
+            "description": "kaboom.",
+            "damage": 600,
+            "loudness": 95,
+            "list_price": 10000,
+            "required_strength": 50
+        },
+        "lanciafiamme" : {
+            "description": "Rumoroso ma letale",
+            "damage": 1000,
+            "loudness": 100,
+            "list_price": 30000,
+            "required_strength": 70
+        },
+        "sputaacido" : {
+            "description": "Silenzioso e letale",
+            "damage": 500,
+            "loudness": 10,
+            "list_price": 30000,
+            "required_strength": 70
+        },
+        "ultimator" : {
+            "description": "Hey, vacci piano con questo.",
+            "damage": 2000,
+            "loudness": 50,
+            "list_price": 200000,
+            "required_strength": 90
+        },
+        "mininuke" : {
+            "description": "Arma fine di mondo.",
+            "damage": 1000000,
+            "loudness": 100,
+            "list_price": 2000000,
+            "required_strength": 100
+        }
+    
+    }
+}

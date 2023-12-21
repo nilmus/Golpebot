@@ -1,0 +1,59 @@
+{
+    "items": {
+        "steroidi" : {
+            "description": "<b>wrUAAAAAAAAAAA!!!</b> \nSenti la fottuta roid rage che ti pulsa nelle vene. Vuoi menare quel mingherlino che è vestito un po' <i>troppo</i> bene. \n\n<i>Usa <code>steroidi</code> per aumentare la tua forza di circa 3 punti (il valore esatto dipenderà dalla tua fortuna)</i>",
+            "properties": "forza__+3",
+            "list_price": 50
+        },
+        "libro" : {
+            "description": "<i>um... akchually!</i> \nSenti la testa che si gonfia a dismisura, i tuoi nuovi poteri mentali sono spaventosi, riesci a fare le addizioni a mente. <i>81+3? Facile... 84...</i> \n\n<i>Usa <code>libro</code> per aumentare la tua intelligenza di circa 7 punti (il valore esatto dipenderà dalla tua fortuna)</i>",
+            "properties": "intelligenza__+7",
+            "list_price": 120
+        },
+        "quadrifoglio" : {
+            "description": "Gastone \n\n<i>Usa <code>quadrifoglio</code> per aumentare la tua fortuna di 1 punto</i>",
+            "properties": "fortuna__+1",
+            "list_price": 15
+        },
+        "trenbolone" : {
+            "description": "<b>come i cani daa malesia</b> \n\n<i>Usa <code>trenbolone</code> per aumentare la tua forza di circa 20 punti (il valore esatto dipenderà dalla tua fortuna)</i>",
+            "properties": "forza__+20",
+            "list_price": 400
+        },
+        "adderall" : {
+            "description": "<b>come i bambini americani</b> \n\n<i>Usa <code>adderall</code> per aumentare la tua intelligenza di circa 30 punti (il valore esatto dipenderà dalla tua fortuna)</i>",
+            "properties": "intelligenza__+30",
+            "list_price": 600
+        },
+        "cerotto" : {
+            "description": "Come nuovo \n\n<i>Usa <code>cerotto</code> per aumentare i tuoi punti salute di circa 100 punti (il valore esatto dipenderà dalla tua fortuna)</i>",
+            "properties": "hp__+100",
+            "list_price": 200
+        },
+        "antidepressivi" : {
+            "description": "<i>Jesùs, dame mas serotonina</i> \n\n<i>Usa <code>antidepressivi</code> per aumentare tutte le tue statistiche di circa 5 punti (il valore esatto dipenderà dalla tua fortuna)</i>",
+            "properties": "all__+5",
+            "list_price": 300
+        },
+        "beveronediGasperini" : {
+            "description": "<i>Per una spinta in più</i> \n\n<i>Usa <code>beveronediGasperini</code> per aumentare tutte le tue statistiche di circa 10 punti (il valore esatto dipenderà dalla tua fortuna)</i>",
+            "properties": "all__+10",
+            "list_price": 750
+        },
+        "gadget" : {
+            "description": "Guarda mamma come DoubleDuck \n\n<i>Usa <code>gadget</code> per resettare il tempo di attesa per lo spionaggio</i>",
+            "properties": "time_of_spy__reset",
+            "list_price": 100
+        },
+        "antibiotico" : {
+            "description": "Guarda mamma come gli allevatori intensivi \n\n<i>Usa <code>antibiotico</code> per resettare il tempo di attesa per la guarigione</i>",
+            "properties": "time_of_heal__reset",
+            "list_price": 50
+        },
+        "sanguediCristo" : {
+            "description": "Guarda mamma come il signore mio Dio onnipotente, creatore del cielo e della terra  \n\n<i>Usa <code>sanguediCristo</code> per resettare il tempo di attesa per il respawn</i>",
+            "properties": "time_of_death__reset",
+            "list_price": 1000
+        }
+    }
+}

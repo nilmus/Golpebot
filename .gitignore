@@ -1,0 +1,9 @@
+/.DS_Store
+/.env
+/.venv
+/.vscode
+/Backups_and_stuff
+/Tests
+/provv.txt
+/redis_test.py
+/todo.txt
