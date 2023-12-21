@@ -75,7 +75,8 @@ def calculate_attack_outcome(damage : int, target_hp : int):
         outcome = "killed"
     return outcome
 
-def apply_attack(attacker_id :int, target_id :int, damage :int, weapon :str):
+def apply_attack(attacker_id :int, target_id :int, damage :int, weapon :str, outcome : str):
+    from Utils.chat_functions import mute_chat_member
     conn, c = prep_database()
     ## Use one ammo
     c.execute('''UPDATE armory
@@ -89,6 +90,19 @@ def apply_attack(attacker_id :int, target_id :int, damage :int, weapon :str):
                     WHERE user_id = %s''',
                     (damage, target_id)
                     )
+    # Remove 10% of every skill
+    if outcome == 'killed':
+        c.execute("SELECT forza, intelligenza, fortuna FROM users WHERE user_id = %s", (target_id,))
+        strength, intelligence, luck = c.fetchone()
+        new_strength = round(strength * 0.9)
+        new_intelligence = round(intelligence * 0.9)
+        new_luck = round(luck * 0.9)
+        c.execute("UPDATE users SET forza = %s WHERE user_id = %s", (new_strength, target_id))
+        c.execute("UPDATE users SET intelligenza = %s WHERE user_id = %s", (new_intelligence, target_id))
+        c.execute("UPDATE users SET fortuna = %s WHERE user_id = %s", (new_luck, target_id))
+    # Mute on group chat
+    if outcome == 'killed':
+        mute_chat_member(target_id)
     # Commit
     conn.commit()
     return

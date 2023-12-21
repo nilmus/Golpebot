@@ -906,10 +906,7 @@ def attack_gave_confirmation(call):
         mode = calculate_loudness_mode(attacker_luck, weapon_loudness)
         outcome = calculate_attack_outcome(damage, target_hp)
         # Apply
-        apply_attack(call.from_user.id, target_id, damage, weapon)
-        # Mute on group chat
-        if outcome == 'killed':
-            mute_chat_member(target_id)
+        apply_attack(call.from_user.id, target_id, damage, weapon, outcome)
         # Send messages and log
         text_to_shooter, text_to_target = attack_send_messages(call, call.from_user.id, target_id, weapon, damage, mode, outcome)
         telegram_logger.info(f"User {get_user_link(call.from_user.id)} - fine /attacco — testo al carnefice: \n'{text_to_shooter}' \n\ntesto alla vittima: \n'{text_to_target}'")
