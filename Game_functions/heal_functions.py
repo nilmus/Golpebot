@@ -7,7 +7,7 @@ def retrieve_values_to_calculate_heal(healer_id : int, healed_id : int):
     c.execute("SELECT intelligenza, team_role FROM users WHERE user_id = %s", (healer_id,))
     healer_intelligence, healer_team_role = c.fetchone()
     # For the target: is_alive
-    c.execute("SELECT intelligenza, fortuna FROM users WHERE user_id = %s", (healed_id,))
+    c.execute("SELECT is_alive FROM users WHERE user_id = %s", (healed_id,))
     is_alive = c.fetchone()[0]
     conn.close()
     return [healer_intelligence, healer_team_role, is_alive]
