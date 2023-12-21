@@ -1329,36 +1329,23 @@ def respawn(message):
         # Send message
         bot.send_message(chat_id=message.from_user.id, text="Cosa vuoi respawnare, che sei ancora vivo", parse_mode='HTML')
         telegram_logger.info(f"Utente {get_user_link(message.from_user.id)} - /respawn - ma era vivo")
-    elif not is_alive:
-        # If dead, check if enough time has passed
-        c.execute("SELECT time_of_death FROM users WHERE user_id = %s", (message.from_user.id,))
-        fetched = c.fetchone()[0]
-        if not fetched:
-            can_respawn = True
-        else:
-            # Use the datetime module to 1. convert it from string to date
-            time_of_death = datetime.datetime.strptime(fetched[0], "%d/%m/%Y %H:%M")
-            # 2. Add time to respawn
-            respawn_time = time_of_death + datetime.timedelta(hours=hours_to_respawn)
-            # And 3. create present datetime object
-            present = datetime.datetime.now()
-            # And check here (slightly different than in other places where this situation occurs)
-            if present >= respawn_time: can_respawn = True
-            elif present < respawn_time: can_respawn = False
-        if can_respawn:
-            # Apply (revive and restore hp)
-            c.execute("UPDATE users SET is_alive = TRUE, hp = 1000 WHERE user_id = %s", (message.from_user.id,))
-            conn.commit()
-            # Send message
-            bot.send_message(chat_id=message.from_user.id, text=f"<code>Operazione completata</code> \n\nSei come nuovo, fai invidia a gesù!", parse_mode='HTML')
-            telegram_logger.info(f"Utente {get_user_link(message.from_user.id)} - /respawn (successo)")
-        elif can_respawn == False:
-            # Calculate remaining time
-            hours_left, remainder = divmod((respawn_time-present).seconds, 3600)
-            minutes_left, _ = divmod(remainder, 60)
-            # Send message
-            bot.send_message(chat_id=message.from_user.id, text=f"<i>Non puoi ancora respawnare, mancano {hours_left} ore e {minutes_left} minuti</i>", parse_mode='HTML')
-            telegram_logger.info(f"Utente {get_user_link(message.from_user.id)} - /respawn - ma non era passato abbastanza tempo")
+        return
+    # If dead, check if enough time has passed
+    time_of_death = retrieve_time_column(message.from_user.id, 'time_of_death')
+    time_check = has_enough_time_passed(time_of_death, hours_to_respawn)
+    if time_check != True:      # if not enough time has passed
+        hours_left, minutes_left = time_check["hours"], time_check["minutes"]
+        text = f"<i>Non puoi ancora respawnare, mancano {hours_left} ore e {minutes_left} minuti</i>"
+        bot.reply_to(message, text)
+        telegram_logger.info(f"User {get_user_link(message.from_user.id)} - /respawn — ma non era passato abbastanza tempo")
+        return
+    elif time_check == True:
+        # Apply (revive and restore hp)
+        c.execute("UPDATE users SET is_alive = TRUE, hp = 1000 WHERE user_id = %s", (message.from_user.id,))
+        conn.commit()
+        # Send message
+        bot.send_message(chat_id=message.from_user.id, text=f"<code>Operazione completata</code> \n\nSei come nuovo, fai invidia a gesù!", parse_mode='HTML')
+        telegram_logger.info(f"Utente {get_user_link(message.from_user.id)} - /respawn (successo)")
     conn.close()
 
 
