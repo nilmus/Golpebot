@@ -1,4 +1,4 @@
-# GOLPE!
+# GOLPE! sas
 t.me/golpegamebot
 
 > GOLPE! è un gioco testuale che vede diversi team contendersi il governo con la diplomazia, con l'intelligence, e con le armi.
