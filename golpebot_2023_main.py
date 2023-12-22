@@ -44,7 +44,7 @@ hours_to_respawn = 12
 hours_golpe = 1
 hours_elections = 2
 minutes_between_spy = 15
-minutes_between_heal = 30
+minutes_between_heal = 90
 # The following variables set the standard for what a high skill-points should be. I should update it if the game picks on to reflect the improving players.
 good_luck = 100
 good_intelligence = 100
@@ -3192,7 +3192,7 @@ def send_health_check_request():
         response = requests.get(url)
 
         if response.status_code == 200:
-            telegram_logger.info("Ho svegliato il bot!")
+            telegram_logger.debug("Ho svegliato il bot!")
         else:
             telegram_logger.info(f"Wakeup failed with status code {response.status_code}")
         time.sleep(60*14)    #repeat every 14 minutes
