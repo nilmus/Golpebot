@@ -1899,25 +1899,16 @@ def team_menu_1(call):
     
     elif data == "assumi":
         # Retrieve user's team
-        conn, c = prep_database()
-        c.execute("SELECT team FROM users WHERE user_id = %s", (call.from_user.id,))
-        team = c.fetchone()[0]
+        team = retrieve_team(call)
         # Retrieve list of team members that are not already soldato/spia/medico, nor politico/leader
-        c.execute("SELECT username FROM users WHERE team = %s AND team_role = 'nullità'", (team,))
-        users = c.fetchall()                # returns a list of tuples
+        hireable_users = get_list_of_users(only_team_roles=['nullità'])
         # Check that list is not empty
         if not users:
             bot.answer_callback_query(call.id, "Non puoi perchè il tuo team non ha membri assumibili come soldato/spia/medico!", show_alert=True)
             return
-        users = [tup[0] for tup in users]   # converts it to a list of strings
-        inline_keyboard = {}
-        for user in users:
-            inline_keyboard[f"@{user}"] = {'callback_data' : f'tm2__assumi__{user}'}
-        inline_keyboard["<- indietro"] = {'callback_data' : f'tm0__{team}'}
-        inline_keyboard = telebot.util.quick_markup(inline_keyboard, row_width=2)
+        list_of_pages = create_keyboard_of_users('tm2__assumi__', hireable_users)
         text = "Scegli chi assumere come soldato/spia/medico"
-        bot.edit_message_text(message_id=call.message.message_id, chat_id=call.from_user.id, text=text, parse_mode='HTML', reply_markup=inline_keyboard)
-        conn.close()
+        display_page_number(list_of_pages, 0, text, call, mode='edit')
         telegram_logger.info(f"Utente {get_user_link(call.from_user.id)} - in /ufficio - \n\n{text}")
     
     elif data == "licenzia":
@@ -2184,17 +2175,13 @@ def team_menu_2(call):
             text = "Con quale ruolo lo vuoi assumere?"
             bot.edit_message_text(message_id=call.message.message_id, chat_id=call.from_user.id, text=text, parse_mode='HTML', reply_markup=inline_keyboard)
         elif len(call.data.split('__')) == 4:
-            subject = call.from_user.username
-            object = call.data.split('__')[2]
+            subject_id = call.from_user.id
+            object_id = call.data.split('__')[2]
             role = call.data.split('__')[3]
             # Apply
             conn, c = prep_database()
-            c.execute("UPDATE users SET team_role = %s WHERE username = %s", (role, object))
+            c.execute("UPDATE users SET team_role = %s WHERE user_id = %s", (role, object))
             conn.commit()
-            # Retrieve object's ID before sending messages
-            c.execute("SELECT user_id FROM users WHERE username = %s", (object,))
-            object_id = c.fetchone()[0]
-            subject_id = call.from_user.id
             conn.close()
             # Send messages
             subject_link = get_user_link(subject_id)
