@@ -17,13 +17,14 @@ def prep_database():
 
 
 
-def get_list_of_users(only_alive=False, exclude_self=False, only_team=False):
+def get_list_of_users(only_alive=False, exclude_self=False, only_team=False, only_team_roles=False):
     '''A function to get all users (for inline keyboards, e.g. in attack, sell, etc.)
     Can optionally only retrieve alive users
     Can optionally exclude the user using the function (pass message/call as argument)
     Can optionally only retrieve users of a certain team (pass a string like 'BLU' or use retrieve_team on the message/call)
-    
-    Returns a list of strings (first names)
+    Can optionally only retrieve users of certain team roles (pass a list of strings)
+
+    Returns a list of tuples of (first_name, user_id)
     '''
     query = "SELECT tg_name, user_id FROM users"
     conditions = []
@@ -37,14 +38,26 @@ def get_list_of_users(only_alive=False, exclude_self=False, only_team=False):
     if only_team:
         conditions.append("team = %s")
         values.append(only_team)
-    
+
     if conditions:
         query += ' WHERE '
         query += ' AND '.join(conditions)
+
+    if only_team_roles:
+        if not conditions:
+            query += ' WHERE ('
+        elif conditions:
+            query += ' AND ('
+        team_role_conditions = []
+        for team_role in only_team_roles:
+            team_role_conditions.append(f"team_role = '{team_role}'")
+        query += ' OR '.join(team_role_conditions)
+        query += ')'
+
     query += " ORDER by tg_name"
     conn, c = prep_database()
     c.execute(query, values)
-    users = c.fetchall()    #returns a list of tuples of (first_name, user_id)
+    users = c.fetchall()
     conn.close()
     return users
 
