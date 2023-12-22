@@ -1604,7 +1604,14 @@ def sell_select_category(call): # 'sell_choose_thing_X page_number thing'
 
 @bot.callback_query_handler(func=lambda message: message.data.startswith("ven2"))
 def sell_choose_price(call):
-    current_price = int(retrieve_data(call))
+    data = retrieve_data(call)
+    if data == 'fatto':
+        new_call = call.data.replace('ven2', 'ven3', 1)
+        call.data = new_call
+        sell_choose_recipient(call)
+        return
+    elif data.isdigit():
+        current_price = int(data)
     keyboard_buttons = [1, 10, 100, 1000]
     range_valid_price = [0, 10000]
     text_pt1 = "A quanto lo vuoi vendere? \n\nPrezzo:"
