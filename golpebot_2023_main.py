@@ -525,7 +525,7 @@ def process_personal_menu(call):
             fetched = c.fetchone()
             if fetched in [None, [], ""]:
                 job_text = "Lavoro: disoccupato"
-            if fetched[0] == 'TEAMROLE':    #this is the edge case where a user has been fired from teamrole, but has not found a private job yet
+            elif fetched[0] == 'TEAMROLE':    #this is the edge case where a user has been fired from teamrole, but has not found a private job yet
                 job_text = "Lavoro: disoccupato"
             else:
                 job_name, contract_expiry_date = fetched
