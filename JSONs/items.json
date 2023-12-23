@@ -15,6 +15,11 @@
             "properties": "fortuna__+1",
             "list_price": 15
         },
+        "Latte-Muu™" : {
+            "description": "<i>Muuuuuy bueno, màs fuerte!</i> \n\n<i>Usa <code>Latte-Muu™</code> per aumentare la tua forza di circa 5 punti (il valore esatto dipenderà dalla tua fortuna)</i>",
+            "properties": "forza__+5",
+            "list_price": 100
+        },
         "trenbolone" : {
             "description": "<b>come i cani daa malesia</b> \n\n<i>Usa <code>trenbolone</code> per aumentare la tua forza di circa 20 punti (il valore esatto dipenderà dalla tua fortuna)</i>",
             "properties": "forza__+20",
@@ -23,6 +28,11 @@
         "adderall" : {
             "description": "<b>come i bambini americani</b> \n\n<i>Usa <code>adderall</code> per aumentare la tua intelligenza di circa 30 punti (il valore esatto dipenderà dalla tua fortuna)</i>",
             "properties": "intelligenza__+30",
+            "list_price": 600
+        },
+        "GolpeGPT" : {
+            "description": "<b>delega le tue decisioni a un oracolo!</b> \n\n<i>Usa <code>GolpeGPT</code> per aumentare la tua fortuna di circa 30 punti (il valore esatto dipenderà dalla tua fortuna...)</i>",
+            "properties": "fortuna__+30",
             "list_price": 600
         },
         "cerotto" : {

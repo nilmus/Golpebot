@@ -1,0 +1,25 @@
+{
+    "businesses": {
+        "fattoria" : {
+            "description": "Hai quello che serve per diventare il prossimo zio Tobia?",
+            "investment": 5000,
+            "employees": {"contadino" : 2},
+            "products": {"Latte-Muu™" : 1},
+            "hours_to_produce": 6
+        },
+        "studio indie" : {
+            "description": "Hai quello che serve per sviluppare il prossimo Golpebot?",
+            "investment": 25000,
+            "employees": {"lavacessi" : 1, "programmatore" : 2, "ingegnere" : 1},
+            "products": {"GolpeGPT" : 1},
+            "hours_to_produce": 8
+        },
+        "ospedale privato" : {
+            "description": "Hai quello che serve per milkare i vecchi fino alla tomba?",
+            "investment": 100000,
+            "employees": {"lavacessi" : 1, "parcheggiatore" : 1, "dottore" : 3, "economista" : 1, "CEO" : 1},
+            "products": {"steroidi" : 10, "antibiotico" : 5, "antidepressivi" : 5, "cerotto" : 5, "trenbolone" : 5, "adderall" : 3, "beveronediGasperini" : 2, "sanguediCristo" : 1},
+            "hours_to_produce": 24
+        }
+    }
+}
